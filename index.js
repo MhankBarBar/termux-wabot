@@ -65,7 +65,7 @@ async function start() {
 			const msgType = MessageType
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			console.log(color('[','white'), color(time), color(']','white'), 'from', color(from.split('@')[0]), 'type' , color(type))
-			if (!mek.key.fromMe) return
+			if (mek.key.fromMe) return // replace (mek.key.fromMe) to (!kek.key.fromMe) for make self bot
 			if (type == 'conversation') {
 				const body = mek.message.conversation.toLowerCase()
 				const args = body.split(' ')
