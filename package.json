@@ -1,0 +1,37 @@
+{
+  "name": "termux-bot",
+  "version": "0.0.1",
+  "description": "No comment",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "termux",
+    "whatsapp",
+    "bot",
+    "whatsapp",
+    "bot"
+  ],
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "@adiwajshing/baileys": "github:adiwajshing/baileys",
+    "@kagchi/kag-api": "^1.5.5",
+    "alexa-bot-api": "^0.1.4",
+    "async": "^2.4.1",
+    "escape-string-regexp": "^1.0.5",
+    "fake-useragent": "^1.0.1",
+    "imgbb-uploader": "^1.1.0",
+    "moment-timezone": "^0.5.32",
+    "multistream": "^2.1.0",
+    "node-fetch": "^2.6.1",
+    "node-gtts": "^2.0.2",
+    "request": "^2.81.0",
+    "tiktok-scraper": "^1.4.4"
+  }
+}
