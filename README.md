@@ -48,6 +48,8 @@ you've just cloned!!
 | :------------: | :---------------------------------------------: |
 |       ✅        |   Get a random meme             |
 |       ✅        |   Text to speech                |
+|       ✅        |   Writing feature |
+|       ✅        |   What Anime Is This |
 
 ## Special Thanks to
 * [`adiwajshing/Baileys`](https://github.com/adiwajshing/Baileys)
