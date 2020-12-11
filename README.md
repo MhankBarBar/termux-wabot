@@ -16,10 +16,12 @@
 </p>
 
 ## Clone this project
-
 ```bash
 > git clone https://github.com/MhankBarBar/termux-wabot
 ```
+###### Add Your ApiKey
+[`Add In Here`](https://github.com/MhankBarBar/termux-wabot/blob/f8262dac61b9afb1c912e7af34ca078169cf61f9/index.js#L64) 
+###### You Can Get It The ApiKey On [`mhankbarbars.herokuapp.com`](https://mhankbarbars.herokuapp.com) 
 
 ## Install the dependencies:
 Before running the below command, make sure you're in the project directory that
@@ -36,19 +38,19 @@ you've just cloned!!
 
 ## Features
 
-| Sticker Creator |                Feature           |
-| :-----------: | :--------------------------------: |
-|       ✅       | Send Photo with Caption          |
-|       ✅       | Reply A Photo                    |
-|       ✅       | Reply A Video or GIF             |
-|       ✅       | Send Video or GIF with Caption   |
-|       ✅       | Reply A Sticker ( sticker to image ) |
+| Sticker Creator |                Feature               |
+| :-------------: | :----------------------------------: |
+|        ✅       |     Send Photo with Caption          |
+|        ✅       |     Reply A Photo                    |
+|        ✅       |     Reply A Video or GIF             |
+|        ✅       |     Send Video or GIF with Caption   |
+|        ✅       | Reply A Sticker ( sticker to image ) |
 
-| Other  |                     Feature                     |
-| :------------: | :---------------------------------------------: |
-|       ✅        |   Get a random meme             |
-|       ✅        |   Text to speech                |
-|       ✅        |   Writing feature |
+|      Other      |       Feature        |
+| :-------------: | :------------------: |
+|       ✅        |   Get a random meme  |
+|       ✅        |   Text to speech     |
+|       ✅        |   Writing feature    |
 |       ✅        |   What Anime Is This |
 
 ## Special Thanks to
