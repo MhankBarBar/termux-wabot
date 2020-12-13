@@ -14,6 +14,7 @@ const { exec } = require('child_process')
 const kagApi = require('@kagchi/kag-api')
 const fetch = require('node-fetch')
 const imgbb = require('imgbb-uploader')
+const speed = require('performance-now')
 
 async function start() {
 	client.on('qr', () => {
@@ -85,6 +86,10 @@ async function start() {
 							fs.unlinkSync(rendom)
 						})
 					})
+				} else if (body == '!ping') {
+					const timestamp = speed();
+					const latensi = speed() - timestamp
+					client.sendMessage(from, `Speed: ${latensi.toFixed(4)} _Second_`, msgType.text, {quoted: mek})
 				} else if (body == '!meme') {
 					const meme = await kagApi.memes()
 					const buffer = await getBuffer(`https://imgur.com/${meme.hash}.jpg`)
@@ -155,7 +160,7 @@ async function start() {
 					rendom = `${Math.floor(Math.random() * 10000)}.webp`
 					exec(`ffmpeg -i ${media} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rendom}`, (error, stdout, stderr) => {
 						let buffer = fs.readFileSync(rendom)
-						client.sendMesaage(from, buffer, msgType.sticker, {quoted: mek})
+						client.sendMessage(from, buffer, msgType.sticker, {quoted: mek})
 						fs.unlinkSync(rendom)
 						fs.unlinkSync(media)
 					})
