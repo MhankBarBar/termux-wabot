@@ -98,6 +98,23 @@ async function start() {
 					const memeindo = await kagApi.memeindo()
 					const buffer = await getBuffer(`https://imgur.com/${memeindo.hash}.jpg`)
 					client.sendMessage(from, buffer, msgType.image, {quoted: mek})
+                                } else if (body.startsWith('!tagall')) { // BerTren-Nation
+					try {
+						const teks = body.slice(8)
+						const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
+					grup = await client.groupMetadata(from);
+                                                  var jids = [];
+                                                  mesaj = `Di Tag Pada ${time}\n${teks}`;
+                                                            grup['participants'].map(
+                                                                     async (uye) => {
+                                                             mesaj += '@' + uye.id.split('@')[0] + ' ';
+                                                             jids.push(uye.id.replace('c.us', 's.whatsapp.net'));
+                                                                     }
+                                                                   );
+                                                               await client.sendMessage(from, mesaj, MessageType.extendedText, {contextInfo: {mentionedJid: jids}, previewType: 0})
+	                                          } catch (e) {
+						console.log(`Error : ${e}`)
+						}
 				} else if (body.startsWith('!nulis ')) {
 					try {
 						const teks = encodeURIComponent(body.slice(7))
@@ -143,7 +160,7 @@ async function start() {
 					media = await client.downloadAndSaveMediaMessage(mek)
 					let buffer = fs.readFileSync(media)
 					await wait(buffer).then(res => {
-						client.sendMessage(from, res.video, msgType.video, {caption: hasil.teks, quoted: mek})
+						client.sendMessage(from, res.video, msgType.video, {caption: res.teks, quoted: mek})
 						fs.unlinkSync(media)
 					}).catch(err => {
 						client.sendMessage(from, err, msgType.text, {quoted: mek})
