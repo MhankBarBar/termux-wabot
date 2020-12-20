@@ -26,6 +26,7 @@ Before running the below command, make sure you're in the project directory that
 you've just cloned!!
 
 ```bash
+> cd termux-wabot
 > bash install.sh
 ```
 
@@ -48,8 +49,23 @@ you've just cloned!!
 | :------------: | :---------------------------------------------: |
 |       ✅        |   Get a random meme             |
 |       ✅        |   Text to speech                |
-|       ✅        |   Writing feature |
-|       ✅        |   What Anime Is This |
+|       ✅        |   Writing feature 				|
+|       ✅        |   What Anime Is This 			|
+|       ✅        |   Url2Img ( Screeenshot Web )   |
+|       ✅        |   Simsimi		                |
+
+| Group  |                     Feature               |
+| :-----------: | :--------------------------------: |
+|       ✅        |   Tagall/Mentionall member       |
+|       ✅        |   Kick Member Group	             |
+|       ✅        |   Add Member Group	             |
+|       ✅        |   Get List Admins Group          |
+
+| Owner Bot  |                     Feature           |
+| :-----------: | :--------------------------------: |
+|       ✅        |   Set Prefix                     |
+|       ✅        |   Broadcast                      |
+|       ✅        |   Clear All Chats                |
 
 ## Special Thanks to
 * [`adiwajshing/Baileys`](https://github.com/adiwajshing/Baileys)
