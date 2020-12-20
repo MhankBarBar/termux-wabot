@@ -500,10 +500,9 @@ async function starts() {
 					if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('Tag target yang ingin di tendang!')
 					mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
 					if (mentioned.length > 1) {
-						teks = ''
+						teks = 'Perintah di terima, mengeluarkan :\n'
 						for (let _ of mentioned) {
-							teks += `Perintah di terima, mengeluarkan :\n`
-							teks += `@_.split('@')[0]`
+							teks += `@${_.split('@')[0]}\n`
 						}
 						mentions(teks, mentioned, true)
 						client.groupRemove(from, mentioned)
