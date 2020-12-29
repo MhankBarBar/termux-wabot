@@ -60,6 +60,7 @@ you've just cloned!!
 |       ✅        |   Kick Member Group	             |
 |       ✅        |   Add Member Group	             |
 |       ✅        |   Get List Admins Group          |
+|       ✅        |   Get Group Invite Link          |
 
 | Owner Bot  |                     Feature           |
 | :-----------: | :--------------------------------: |
