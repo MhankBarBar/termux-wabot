@@ -557,7 +557,7 @@ async function starts() {
 					}
 					mentions(teks, groupAdmins, true)
 					break
-                                case 'linkgroup':
+                              case 'linkgroup':
                                       if (!isGroup) return reply(mess.only.group)
                                       if (!isGroupAdmins) return reply(mess.only.admin)
                                       if (!isBotGroupAdmins) return reply(mess.only.Badmin)
