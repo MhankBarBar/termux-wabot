@@ -479,7 +479,7 @@ async function starts() {
 						reply('Suksess broadcast')
 					}
 					break
-        case 'promote':
+                              case 'promote':
 					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
 					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
