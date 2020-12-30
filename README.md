@@ -57,6 +57,8 @@ you've just cloned!!
 | Group  |                     Feature               |
 | :-----------: | :--------------------------------: |
 |       ✅        |   Tagall/Mentionall member       |
+|       ✅        |   Tagall2/Mentionall member       |
+|       ✅        |   Tagall3/Mentionall member       |
 |       ✅        |   Kick Member Group	             |
 |       ✅        |   Add Member Group	             |
 |       ✅        |   Get List Admins Group          |
