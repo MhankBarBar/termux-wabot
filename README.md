@@ -63,6 +63,7 @@ you've just cloned!!
 |       ✅        |   Add Member Group	             |
 |       ✅        |   Get List Admins Group          |
 |       ✅        |   Get Group Invite Link          |
+|       ✅        |   Bot leave the group            |
 
 | Owner Bot  |                     Feature           |
 | :-----------: | :--------------------------------: |

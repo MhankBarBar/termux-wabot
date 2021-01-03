@@ -577,13 +577,21 @@ async function starts() {
 					}
 					mentions(teks, groupAdmins, true)
 					break
-                              case 'linkgroup':
-                                      if (!isGroup) return reply(mess.only.group)
-                                      if (!isGroupAdmins) return reply(mess.only.admin)
-                                      if (!isBotGroupAdmins) return reply(mess.only.Badmin)
-                                      linkgc = await client.groupInviteCode(from)
-                                      reply('https://chat.whatsapp.com/'+linkgc)
-                                      break
+                                case 'linkgroup':
+                                        if (!isGroup) return reply(mess.only.group)
+                                        if (!isGroupAdmins) return reply(mess.only.admin)
+                                        if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+                                        linkgc = await client.groupInviteCode(from)
+                                        reply('https://chat.whatsapp.com/'+linkgc)
+                                        break
+                                case 'leave':
+                                        if (!isGroup) return reply(mess.only.group)
+                                        if (isGroupAdmins || isOwner) {
+                                            client.groupLeave(from)
+                                        } else {
+                                            reply(mess.only.admin)
+                                        }
+                                        break
 				case 'toimg':
 					if (!isQuotedSticker) return reply('❌ reply stickernya um ❌')
 					reply(mess.wait)

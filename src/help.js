@@ -66,6 +66,10 @@ command : *${prefix}linkgroup*
 desc : take the group link
 usage : just send the command
 note : can only be used when the bot becomes admin, and the one who sends the command is admin!\n
+command : *${prefix}leave*
+desc : Make bot leave the group
+usage : just send the command
+note : Can only be used by Group admins and Bot owner\n
 command : *${prefix}tagall*
 desc : tags all group members including admins too
 usage : just send the command
