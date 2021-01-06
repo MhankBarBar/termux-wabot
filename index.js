@@ -46,10 +46,7 @@ async function starts() {
 	client.on('qr', () => {
 		console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan the qr code above'))
 	})
-	client.on('credentials-updated', () => {
-		fs.writeFileSync('./BarBar.json', JSON.stringify(client.base64EncodedAuthInfo(), null, '\t'))
-		info('2', 'Login Info Updated')
-	})
+
 	fs.existsSync('./BarBar.json') && client.loadAuthInfo('./BarBar.json')
 	client.on('connecting', () => {
 		start('2', 'Connecting...')
@@ -58,6 +55,7 @@ async function starts() {
 		success('2', 'Connected')
 	})
 	await client.connect({timeoutMs: 30*1000})
+        fs.writeFileSync('./BarBar.json', JSON.stringify(client.base64EncodedAuthInfo(), null, '\t'))
 
 	client.on('group-participants-update', async (anu) => {
 		if (!welkom.includes(anu.jid)) return
@@ -89,15 +87,18 @@ async function starts() {
 			console.log('Error : %s', color(e, 'red'))
 		}
 	})
+
 	client.on('CB:Blocklist', json => {
-		if (blocked.length > 2) return
+            if (blocked.length > 2) return
 	    for (let i of json[1].blocklist) {
 	    	blocked.push(i.replace('c.us','s.whatsapp.net'))
 	    }
 	})
 
-	client.on('message-new', async (mek) => {
+	client.on('chat-update', async (mek) => {
 		try {
+                        if (!mek.hasNewMessage) return
+                        mek = JSON.parse(JSON.stringify(mek)).messages[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
@@ -224,8 +225,7 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								buff = fs.readFileSync(ran)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)
 							})
@@ -250,8 +250,7 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								buff = fs.readFileSync(ran)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)
 							})
@@ -274,8 +273,7 @@ async function starts() {
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								buff = fs.readFileSync(ranw)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
 					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
@@ -293,8 +291,7 @@ async function starts() {
 							.on('end', function () {
 								console.log('Finish')
 								fs.unlinkSync(media)
-								buff = fs.readFileSync(ran)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
 								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=${args[0]}@0.0, split [a][b]; [a] palettegen=reserve_transparent=off; [b][p] paletteuse`])
@@ -314,13 +311,8 @@ async function starts() {
 					dtt.length > 600
 					? reply('Textnya kebanyakan om')
 					: gtts.save(ranm, dtt, function() {
-						exec(`ffmpeg -i ${ranm} -ar 48000 -vn -c:a libopus ${rano}`, (err) => {
-							fs.unlinkSync(ranm)
-							buff = fs.readFileSync(rano)
-							if (err) return reply('Gagal om:(')
-							client.sendMessage(from, buff, audio, {quoted: mek, ptt:true})
-							fs.unlinkSync(rano)
-						})
+						client.sendMessage(from, fs.readFileSync(ranm), audio, {quoted: mek, mimetype: 'audio/mp4', ptt:true})
+						fs.unlinkSync(rano)
 					})
 					break
 				case 'meme':
@@ -435,8 +427,7 @@ async function starts() {
 					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
 						fs.unlinkSync(ranp)
 						if (err) return reply(mess.error.stick)
-						buffer = fs.readFileSync(rano)
-						client.sendMessage(from, buffer, sticker, {quoted: mek})
+						client.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
 						fs.unlinkSync(rano)
 					})
 					break
@@ -451,6 +442,26 @@ async function starts() {
 						members_id.push(mem.jid)
 					}
 					mentions(teks, members_id, true)
+					break
+                case 'tagall2':
+					members_id = []
+					teks = (args.length > 1) ? body.slice(8).trim() : ''
+					teks += '\n\n'
+					for (let mem of groupMembers) {
+						teks += `╠➥ @${mem.jid.split('@')[0]}\n`
+						members_id.push(mem.jid)
+					}
+					reply(teks)
+					break
+                 case 'tagall3':
+					members_id = []
+					teks = (args.length > 1) ? body.slice(8).trim() : ''
+					teks += '\n\n'
+					for (let mem of groupMembers) {
+						teks += `╠➥ https://wa.me/${mem.jid.split('@')[0]}\n`
+						members_id.push(mem.jid)
+					}
+					client.sendMessage(from, teks, text, {detectLinks: false, quoted: mek})
 					break
 				case 'clearall':
 					if (!isOwner) return reply('Kamu siapa?')
