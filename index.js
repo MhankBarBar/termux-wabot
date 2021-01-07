@@ -307,12 +307,11 @@ async function starts() {
 					if (args.length < 2) return client.sendMessage(from, 'Textnya mana om', text, {quoted: mek})
 					dtt = body.slice(9)
 					ranm = getRandom('.mp3')
-					rano = getRandom('.ogg')
 					dtt.length > 600
 					? reply('Textnya kebanyakan om')
 					: gtts.save(ranm, dtt, function() {
 						client.sendMessage(from, fs.readFileSync(ranm), audio, {quoted: mek, mimetype: 'audio/mp4', ptt:true})
-						fs.unlinkSync(rano)
+						fs.unlinkSync(ranm)
 					})
 					break
 				case 'meme':
@@ -331,7 +330,7 @@ async function starts() {
 					prefix = args[0]
 					reply(`Prefix berhasil di ubah menjadi : ${prefix}`)
 					break
-				case 'loli':
+				/*case 'loli':
 					loli.getSFWLoli(async (err, res) => {
 						if (err) return reply('❌ *ERROR* ❌')
 						buffer = await getBuffer(res.url)
@@ -345,7 +344,7 @@ async function starts() {
 						buffer = await getBuffer(res.url)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: 'Jangan jadiin bahan buat comli om'})
 					})
-					break
+					break*/
 				case 'hilih':
 					if (args.length < 1) return reply('Teksnya mana um?')
 					anu = await fetchJson(`https://mhankbarbars.herokuapp.com/api/hilih?teks=${body.slice(7)}`, {method: 'get'})
@@ -443,7 +442,7 @@ async function starts() {
 					}
 					mentions(teks, members_id, true)
 					break
-                case 'tagall2':
+                                case 'tagall2':
 					members_id = []
 					teks = (args.length > 1) ? body.slice(8).trim() : ''
 					teks += '\n\n'
@@ -453,7 +452,7 @@ async function starts() {
 					}
 					reply(teks)
 					break
-                 case 'tagall3':
+                                case 'tagall3':
 					members_id = []
 					teks = (args.length > 1) ? body.slice(8).trim() : ''
 					teks += '\n\n'
@@ -490,7 +489,7 @@ async function starts() {
 						reply('Suksess broadcast')
 					}
 					break
-        case 'promote':
+                                case 'promote':
 					if (!isGroup) return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
 					if (!isBotGroupAdmins) return reply(mess.only.Badmin)
