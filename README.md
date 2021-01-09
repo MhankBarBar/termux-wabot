@@ -35,6 +35,11 @@ you've just cloned!!
 > npm start
 ```
 
+### Info
+```
+prefix = .
+```
+
 ## Features
 
 | Sticker Creator |                Feature           |
