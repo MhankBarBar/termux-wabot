@@ -127,7 +127,8 @@ async function starts() {
 					ownerG: '❌ Perintah ini hanya bisa di gunakan oleh owner group! ❌',
 					ownerB: '❌ Perintah ini hanya bisa di gunakan oleh owner bot! ❌',
 					admin: '❌ Perintah ini hanya bisa di gunakan oleh admin group! ❌',
-					Badmin: '❌ Perintah ini hanya bisa di gunakan ketika bot menjadi admin! ❌'
+					Badmin: '❌ Perintah ini hanya bisa di gunakan ketika bot menjadi admin! ❌',
+					replyB: '❌ Hanya Tag Pesan Bot! ❌'
 				}
 			}
 
@@ -460,6 +461,21 @@ async function starts() {
 						members_id.push(mem.jid)
 					}
 					client.sendMessage(from, teks, text, {detectLinks: false, quoted: mek})
+					break
+				case 'tagme':
+					mentions(`@${sender.split('@')[0]}`, [sender], true)
+					break
+				case 'delete': // MR.CYSER
+					try {
+					if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply(mess.only.replyB)
+					    if (isGroupAdmins || isOwner){
+				           	 client.deleteMessage(from, {id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true})
+				                   } else {
+					                 reply(mess.only.admin)
+					                   }
+				       } catch (e){
+					         reply(mess.only.replyB)
+					}
 					break
 				case 'clearall':
 					if (!isOwner) return reply('Kamu siapa?')
