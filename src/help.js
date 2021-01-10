@@ -1,5 +1,5 @@
 const help = (prefix) => {
-	return `> *Sticker Commands* <
+	return `> *halo, ini bot Yudi, Sticker Commands* <
 command : *${prefix}sticker* or *${prefix}stiker*
 desc : convert image/gif/video to sticker
 usage : reply image/gif/video, or send image/gif/video with caption\n
