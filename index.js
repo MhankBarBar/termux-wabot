@@ -106,8 +106,8 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const apiKey = 'Your-Api-Key'
-			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
+			const   apiKey   =   'xXvQeSgBagagpdgt4TyU'
+			const { text , extendedText , kontak , lokasi , liveLocation , gambar , video , stiker , dokumen , audio , produk } =  MessageType
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
 			budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
@@ -132,8 +132,8 @@ async function starts() {
 			}
 
 			const botNumber = client.user.jid
-			const ownerNumber = ["6285892766102@s.whatsapp.net"] // replace this with your number
-			const isGroup = from.endsWith('@g.us')
+			const  ownerNumber  = [ "6285342494328@s.whatsapp.net" ] // ganti ini dengan nomor Anda
+			const  isGroup  =  dari . diakhiri dengan ( '@ g.us' )
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
 			const groupName = isGroup ? groupMetadata.subject : ''
