@@ -16,10 +16,18 @@ usage : *${prefix}tsticker text in here*\n
 command : *${prefix}meme*
 desc : random meme images [english]
 usage : just send the command\n
-command : *${prefix}memeindo*
-desc : random meme images [indo]
-usage : just send the command\n
 > *Others Commands* <
+command : *${prefix}tp*
+desc : Text / Logo maker from textpro.me
+usage : *${prefix}tp [no] [text]*\nexample : *${prefix}tp 1 YourText*
+note : *${prefix}tp list* ( for show all theme )\n
+command : *${prefix}ep*
+desc : Text / Logo maker from ephoto360.com
+usage : *${prefix}ep [no] [text]*\nexample : *${prefix}ep 1 YourText*
+note : *${prefix}ep list* ( for show all theme )\n
+command : *${prefix}tahta*
+desc : Harta Tahta .....
+usage : *${prefix}tahta [text]*\nexample : *${prefix}tahta YourText*\n
 command : *${prefix}gtts*
 desc : convert text to speech/audio
 usage : *${prefix}gtts [cc] [text]*\nexample : *${prefix}gtts ja On2-chan*\n

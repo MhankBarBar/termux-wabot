@@ -8,7 +8,7 @@ const {
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
 const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./lib/functions')
-const { fetchJson } = require('./lib/fetcher')
+const { fetchJson, fetchText } = require('./lib/fetcher')
 const { recognize } = require('./lib/ocr')
 const fs = require('fs')
 const moment = require('moment-timezone')
@@ -105,7 +105,7 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const apiKey = 'Your-Api-Key'
+			const apiKey = '0226eW1wIY8GQSlFy6vN' // contact me on whatsapp wa.me/6285892766102
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
@@ -203,6 +203,62 @@ async function starts() {
 							})
 					} else {
 						reply('Foto aja mas')
+					}
+					break
+				case 'tp':
+					if (args.length < 1) {
+						return reply('Pilih themenya om, 1 - 162')
+					} else if (args[0].toLowerCase() === 'list') {
+						teks = await fetchText('https://mhankbarbar.tech/api/textpro/listtheme')
+						teks = teks.replace(/<br>/g, '\n')
+						return reply(teks)
+					} else if (args.length < 2) {
+						return reply('Teksnya juga dong om')
+					}
+					reply(mess.wait)
+					anu = `https://mhankbarbar.tech/api/textpro?pack=${args[0]}&text=${body.slice(3+args[0].length+1)}&apiKey=${apiKey}`
+					voss = await fetch(anu)
+					ftype = require('file-type')
+					vuss = await ftype.fromStream(voss.body)
+					//console.log(vuss)
+					if (vuss !== undefined) {
+						client.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
+					} else {
+						reply('Terjadi kesalahan, silahkan pilih theme lain')
+					}
+					break
+				case 'ep':
+					if (args.length < 1) {
+						return reply('Pilih themenya om, 1 - 216')
+					} else if (args[0].toLowerCase() === 'list') {
+						teks = await fetchText('https://mhankbarbar.tech/api/ephoto/listtheme')
+						teks = teks.replace(/<br>/g, '\n')
+						return reply(teks)
+					} else if (args.length < 2) {
+						return reply('Teksnya juga dong om')
+					}
+					reply(mess.wait)
+					anu = `https://mhankbarbar.tech/api/ephoto?pack=${args[0]}&text=${body.slice(3+args[0].length+1)}&apiKey=${apiKey}`
+					voss = await fetch(anu)
+					ftype = require('file-type')
+					vuss = await ftype.fromStream(voss.body)
+					//console.log(vuss)
+					if (vuss !== undefined) {
+						client.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
+					} else {
+						reply('Terjadi kesalahan, silahkan pilih theme lain')
+					}
+					break
+				case 'tahta':
+					if (args.length < 1) return reply('Teksnya om')
+					anu = `https://mhankbarbar.tech/api/htahta?text=${args.join(' ')}&apiKey=${apiKey}`
+					voss = await fetch(anu)
+					ftype = require('file-type')
+					vuss = await ftype.fromStream(voss.body)
+					if (vuss !== undefined) {
+						client.sendMessage(from, await getBuffer(anu), image, { quoted: mek, caption: mess.sucess })
+					} else {
+						reply('Terjadi kesalahan')
 					}
 					break
 				case 'stiker':
