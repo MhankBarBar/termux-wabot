@@ -22,7 +22,7 @@ const loli = new lolis()
 const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
-prefix = '.'
+prefix = '!'
 blocked = []
 
 function kyun(seconds){
@@ -115,8 +115,8 @@ async function starts() {
 			const isCmd = body.startsWith(prefix)
 
 			mess = {
-				wait: '⌛ Sedang di Prosess ⌛',
-				success: '✔️ Berhasil ✔️',
+				wait: '⌛ korch nerm wait akk ⌛',
+				success: '✔️ set ayi ✔️',
 				error: {
 					stick: '❌ Gagal, terjadi kesalahan saat mengkonversi gambar ke sticker ❌',
 					Iv: '❌ Link tidak valid ❌'
@@ -737,3 +737,4 @@ async function starts() {
 	})
 }
 starts()
+ki
