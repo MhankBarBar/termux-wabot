@@ -211,7 +211,6 @@ async function starts() {
 				const buffer = Buffer.concat([littleEndian, buf2, buf3, buf4])
 
 				fs.writeFile(`./src/stickers/${name}.exif`, buffer, (err) => {
-					if (err) return 'lxndr_lxndrBot.exif';
 					return `./src/stickers/${name}.exif`
 				})
 
