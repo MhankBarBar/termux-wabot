@@ -1,27 +1,37 @@
 const help = (prefix) => {
-	return `> *Sticker Commands* <
-command : *${prefix}sticker* or *${prefix}stiker*
-desc : convert image/gif/video to sticker
-usage : reply image/gif/video, or send image/gif/video with caption\n
-command : *${prefix}sticker nobg* or *${prefix}stiker nobg*
-desc : convert image to sticker while removing the background
-usage : reply image, or send image with caption\n
-command : *${prefix}toimg*
-desc : convert sticker to image
-usage : reply sticker\n
-command : *${prefix}tsticker* or *${prefix}tstiker*
-desc : convert text to sticker
-usage : *${prefix}tsticker text in here*\n
-> *Meme Commands* <
-command : *${prefix}meme*
-desc : random meme images [english]
-usage : just send the command\n
-> *Others Commands* <
-command : *${prefix}tp*
-desc : Text / Logo maker from textpro.me
-usage : *${prefix}tp [no] [text]*\nexample : *${prefix}tp 1 YourText*
+	return `>
+╠➥ 𝐃𝐎𝐍𝐎: ⛧͜͡🌹𝐕𝐈𝐂𝐓𝐎𝐑  ⃟🔥 ou Victor
+╠➥ *wa.me/+5583986737669*.
+╠➥ 𝐒𝐓𝐀𝐓𝐔𝐒: ON
+
+➥*Sticker Commands* 
+
+➥comando : *${prefix}sticker* or *${prefix}stiker*
+desc : transformar imagem/gif/video em figurinha. 
+usage : marque uma imagem/gif/video, ou mande uma imagem/gif/video com o comando caption\n
+➥comando : *${prefix}sticker nobg* or *${prefix}stiker nobg*
+desc : remover o fundo da imagem 
+usage : marque a mensagem ou coloque na legenda caption\n
+➥comando : *${prefix}toimg*
+desc : transformar figurinha em foto
+usage : marque a figutinha com o comando\n
+➥comando : *${prefix}tsticker* or *${prefix}tstiker*
+desc : transformar text em figurinha
+usage : *${prefix}tsticker e seu texto*\n
+
+➥*Meme Commands* 
+
+comando : *${prefix}meme*
+desc : meme aleatório [inglês]
+usage : apenas mande o comando\n
+
+➥*Others Commands* 
+
+➥comando : *${prefix}tp*
+desc : Text / Logo maker do textpro.me
+usage : *${prefix}tp [no] [text]*\nexample : *${prefix}tp 1 SeuTexto*
 note : *${prefix}tp list* ( for show all theme )\n
-command : *${prefix}ep*
+➥comando : *${prefix}ep*
 desc : Text / Logo maker from ephoto360.com
 usage : *${prefix}ep [no] [text]*\nexample : *${prefix}ep 1 YourText*
 note : *${prefix}ep list* ( for show all theme )\n
