@@ -22,7 +22,8 @@ const loli = new lolis()
 const welkom = JSON.parse(fs.readFileSync('./src/welkom.json'))
 const nsfw = JSON.parse(fs.readFileSync('./src/nsfw.json'))
 const samih = JSON.parse(fs.readFileSync('./src/simi.json'))
-prefix = '.'
+const setting = JSON.parse(fs.readFileSync('./src/settings.json'))
+prefix = setting.prefix
 blocked = []
 
 function kyun(seconds){
@@ -95,8 +96,8 @@ async function starts() {
 
 	client.on('chat-update', async (mek) => {
 		try {
-                        if (!mek.hasNewMessage) return
-                        mek = JSON.parse(JSON.stringify(mek)).messages[0]
+            if (!mek.hasNewMessage) return
+            mek = JSON.parse(JSON.stringify(mek)).messages[0]
 			if (!mek.message) return
 			if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 			if (mek.key.fromMe) return
@@ -105,7 +106,7 @@ async function starts() {
 			const content = JSON.stringify(mek.message)
 			const from = mek.key.remoteJid
 			const type = Object.keys(mek.message)[0]
-			const apiKey = 'Your Api Key' // contact me on whatsapp wa.me/6285892766102
+			const apiKey = setting.apiKey // contact me on whatsapp wa.me/6285892766102
 			const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
 			const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 			body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : ''
@@ -131,7 +132,7 @@ async function starts() {
 			}
 
 			const botNumber = client.user.jid
-			const ownerNumber = ["6285892766102@s.whatsapp.net"] // replace this with your number
+			const ownerNumber = [`${setting.ownerNumber}@s.whatsapp.net`] // replace this with your number
 			const isGroup = from.endsWith('@g.us')
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
@@ -167,55 +168,6 @@ async function starts() {
 			if (!isGroup && !isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 			if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32mEXEC\x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 			if (!isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;31mRECV\x1b[1;37m]', time, color('Message'), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
-			
-			let authorname = client.contacts[from] != undefined ? client.contacts[from].vname || client.contacts[from].notify : undefined
-			if (authorname != undefined) { } else { authorname = groupName }
-			
-			function addMetadata(packname, author) {
-				if (!packname) packname = 'WABot'; if (!author) author = 'Bot';
-				author = author.replace(/[^a-zA-Z0-9]/g, '');
-				let name = `${author}_${packname}`
-
-				if (fs.existsSync(`./src/stickers/${name}.exif`)) {
-					return `./src/stickers/${name}.exif`
-				}
-				const json = {
-					"sticker-pack-name": packname,
-					"sticker-pack-publisher": author,
-				}
-
-				const littleEndian = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00])
-				const bytes = [0x00, 0x00, 0x16, 0x00, 0x00, 0x00]
-
-				let len = JSON.stringify(json).length
-				let last
-
-				if (len > 256) {
-					len = len - 256
-					bytes.unshift(0x01)
-				} else {
-					bytes.unshift(0x00)
-				}
-
-				if (len < 16) {
-					last = len.toString(16)
-					last = "0" + len
-				} else {
-					last = len.toString(16)
-				}
-
-				const buf2 = Buffer.from(last, "hex")
-				const buf3 = Buffer.from(bytes)
-				const buf4 = Buffer.from(JSON.stringify(json))
-
-				const buffer = Buffer.concat([littleEndian, buf2, buf3, buf4])
-
-				fs.writeFile(`./src/stickers/${name}.exif`, buffer, (err) => {
-					return `./src/stickers/${name}.exif`
-				})
-
-			}
-			
 			switch(command) {
 				case 'help':
 				case 'menu':
@@ -266,9 +218,6 @@ async function starts() {
 					}
 					reply(mess.wait)
 					anu = `https://mhankbarbar.tech/api/textpro?pack=${args[0]}&text=${body.slice(3+args[0].length+1)}&apiKey=${apiKey}`
-					voss = await fetch(anu)
-					ftype = require('file-type')
-					vuss = await ftype.fromStream(voss.body)
 					//console.log(vuss)
 					if (vuss !== undefined) {
 						client.sendMessage(from, await getBuffer(anu), image, { caption: mess.success, quoted: mek })
@@ -328,12 +277,9 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('BOT', authorname)} ${ran} -o ${ran}`, async (error) => {
-									if (error) return reply(mess.error.stick)
-									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
-									fs.unlinkSync(media)
-									fs.unlinkSync(ran)
-								})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								fs.unlinkSync(media)
+								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 							.toFormat('webp')
@@ -356,12 +302,9 @@ async function starts() {
 							})
 							.on('end', function () {
 								console.log('Finish')
-								exec(`webpmux -set exif ${addMetadata('BOT', authorname)} ${ran} -o ${ran}`, async (error) => {
-									if (error) return reply(mess.error.stick)
-									client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
-									fs.unlinkSync(media)
-									fs.unlinkSync(ran)
-								})
+								client.sendMessage(from, fs.readFileSync(ran), sticker, {quoted: mek})
+								fs.unlinkSync(media)
+								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 							.toFormat('webp')
@@ -382,11 +325,7 @@ async function starts() {
 							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
 								fs.unlinkSync(ranp)
 								if (err) return reply(mess.error.stick)
-								exec(`webpmux -set exif ${addMetadata('BOT', authorname)} ${ranw} -o ${ranw}`, async (error) => {
-									if (error) return reply(mess.error.stick)
-									client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
-									fs.unlinkSync(ranw)
-								})
+								client.sendMessage(from, fs.readFileSync(ranw), sticker, {quoted: mek})
 							})
 						})
 					/*} else if ((isMedia || isQuotedImage) && colors.includes(args[0])) {
@@ -428,7 +367,7 @@ async function starts() {
 					})
 					break
 				case 'meme':
-					meme = await fetchJson('https://kagchi-api.glitch.me/meme/memes', { method: 'get' })
+					meme = await fetchJson('https//kagchi-api.glitch.me/meme/memes', { method: 'get' })
 					buffer = await getBuffer(`https://imgur.com/${meme.hash}.jpg`)
 					client.sendMessage(from, buffer, image, {quoted: mek, caption: '.......'})
 					break
@@ -441,6 +380,8 @@ async function starts() {
 					if (args.length < 1) return
 					if (!isOwner) return reply(mess.only.ownerB)
 					prefix = args[0]
+					setting.prefix = prefix
+					fs.writeFileSync('./src/settings.json', JSON.stringify(setting, null, '\t'))
 					reply(`Prefix berhasil di ubah menjadi : ${prefix}`)
 					break
 				/*case 'loli':
@@ -539,11 +480,8 @@ async function starts() {
 					exec(`wget ${anu.result} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
 						fs.unlinkSync(ranp)
 						if (err) return reply(mess.error.stick)
-						exec(`webpmux -set exif ${addMetadata('BOT', authorname)} ${rano} -o ${rano}`, async (error) => {
-							if (error) return reply(mess.error.stick)
-							client.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
-							fs.unlinkSync(rano)
-						})
+						client.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+						fs.unlinkSync(rano)
 					})
 					break
 				case 'tagall':
@@ -683,21 +621,21 @@ async function starts() {
 					}
 					mentions(teks, groupAdmins, true)
 					break
-                                case 'linkgroup':
-                                        if (!isGroup) return reply(mess.only.group)
-                                        if (!isGroupAdmins) return reply(mess.only.admin)
-                                        if (!isBotGroupAdmins) return reply(mess.only.Badmin)
-                                        linkgc = await client.groupInviteCode(from)
-                                        reply('https://chat.whatsapp.com/'+linkgc)
-                                        break
-                                case 'leave':
-                                        if (!isGroup) return reply(mess.only.group)
-                                        if (isGroupAdmins || isOwner) {
-                                            client.groupLeave(from)
-                                        } else {
-                                            reply(mess.only.admin)
-                                        }
-                                        break
+                case 'linkgroup':
+                    if (!isGroup) return reply(mess.only.group)
+                    if (!isGroupAdmins) return reply(mess.only.admin)
+                    if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+                    linkgc = await client.groupInviteCode(from)
+                    reply('https://chat.whatsapp.com/'+linkgc)
+                    break
+                case 'leave':
+                    if (!isGroup) return reply(mess.only.group)
+                    if (isGroupAdmins || isOwner) {
+                    	client.groupLeave(from)
+                    } else {
+                        reply(mess.only.admin)
+                    }
+                    break
 				case 'toimg':
 					if (!isQuotedSticker) return reply('❌ reply stickernya um ❌')
 					reply(mess.wait)

@@ -36,9 +36,13 @@ you've just cloned!!
 > npm start
 ```
 
-### Info
-```
-prefix = .
+### Settings
+```json
+{
+	"prefix": ".",
+	"ownerNumber": "62858xxxxx",
+	"apiKey": "Your ApiKey here"
+}
 ```
 
 ## Features
