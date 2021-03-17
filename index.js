@@ -94,6 +94,14 @@ async function starts() {
 	    }
 	})
 
+	client.on("CB:action,,call", json => {
+		if (json[2][0][0] === 'call') {
+			client.sendMessage(json[2][0][1].from, 'Dont Call', MessageType.text).then(() => {
+				client.blockUser(json[2][0][1].from, "add")
+			})
+		}
+	})
+
 	client.on('chat-update', async (mek) => {
 		try {
             if (!mek.hasNewMessage) return
