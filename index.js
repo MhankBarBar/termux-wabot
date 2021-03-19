@@ -78,7 +78,7 @@ async function starts() {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Sayonara @${num.split('@')[0]}👋`
+				teks = `Saiu pra bater punheta😈 @${num.split('@')[0]}`
 				let buff = await getBuffer(ppimg)
 				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
@@ -116,18 +116,18 @@ async function starts() {
 			const isCmd = body.startsWith(prefix)
 
 			mess = {
-				wait: '⌛ Sedang di Prosess ⌛',
-				success: '✔️ Berhasil ✔️',
+				wait: '⌛ Espera aí Krlh ⌛',
+				success: '✔️ Pronto Cuzão ✔️',
 				error: {
-					stick: '❌ Gagal, terjadi kesalahan saat mengkonversi gambar ke sticker ❌',
+					stick: '❌ Essa Pouha Deu erro ❌',
 					Iv: '❌ Link tidak valid ❌'
 				},
 				only: {
-					group: '❌ Perintah ini hanya bisa di gunakan dalam group! ❌',
+					group: '❌ Membro comum não tenho acessokkkkk a esse comando ❌',
 					ownerG: '❌ Perintah ini hanya bisa di gunakan oleh owner group! ❌',
 					ownerB: '❌ Perintah ini hanya bisa di gunakan oleh owner bot! ❌',
-					admin: '❌ Perintah ini hanya bisa di gunakan oleh admin group! ❌',
-					Badmin: '❌ Perintah ini hanya bisa di gunakan ketika bot menjadi admin! ❌'
+					admin: '❌ Membro comum não tenho acessokkkkk a esse comando ❌',
+					Badmin: '❌ Preciso De Admin Buro ❌'
 				}
 			}
 
