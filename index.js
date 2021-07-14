@@ -1,9 +1,21 @@
 const {
-    WAConnection,
-    MessageType,
-    Presence,
-    Mimetype,
-    GroupSettingChange
+		WAConnection,
+		MessageType,
+		WAMessageProto,
+		prepareMessageFromContent,
+		relayWAMessage,
+		Presence,
+		MessageOptions,
+		Mimetype,
+		WALocationMessage,
+		WA_MESSAGE_STUB_TYPES,
+		WA_DEFAULT_EPHEMERAL,
+		ReconnectMode,
+		ProxyAgent,
+		GroupSettingChange,
+		waChatKey,
+		mentionedJid,
+		processTime,
 } = require('@adiwajshing/baileys')
 const { color, bgcolor } = require('./lib/color')
 const { help } = require('./src/help')
