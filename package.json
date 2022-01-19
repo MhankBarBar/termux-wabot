@@ -22,7 +22,7 @@
   "dependencies": {
     "@adiwajshing/baileys": "^3.4.1",
     "async": "^3.2.0",
-    "axios": "^0.21.1",
+    "axios": "^0.25.0",
     "cfonts": "^2.9.0",
     "escape-string-regexp": "^5.0.0",
     "fake-useragent": "^1.0.1",
