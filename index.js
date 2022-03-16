@@ -304,7 +304,6 @@ async function starts() {
 						reply('Terjadi kesalahan')
 					}
 					break
-				case 'stiker':
 				case 'sticker':
 					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
@@ -509,7 +508,6 @@ async function starts() {
 						reply('Kemungkinan username tidak valid')
 					}
 					break*/
-				case 'nulis':
 				case 'tulis':
 					if (args.length < 1) return reply('Yang mau di tulis apaan?')
 					teks = body.slice(7)
@@ -531,7 +529,6 @@ async function starts() {
 					buff = await getBuffer(anu.result)
 					client.sendMessage(from, buff, image, {quoted: mek})
 					break
-				case 'tstiker':
 				case 'tsticker':
 					if (args.length < 1) return reply('Textnya mana um?')
 					ranp = getRandom('.png')
